@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/astaxie/beego/validation"
 	"github.com/gin-gonic/gin"
-	"github.com/putyy/ai-share/app/form"
 	"github.com/putyy/ai-share/app/library"
 	"github.com/putyy/ai-share/app/servers"
 	config2 "github.com/putyy/ai-share/config"
@@ -19,19 +18,6 @@ import (
 type auth struct {
 	Username string `valid:"Required; MaxSize(18); MinSize(8);"`
 	Password string `valid:"Required; MaxSize(18); MinSize(6);"`
-}
-
-func Search(c *gin.Context) {
-	formData := form.UserApiForm{}
-	if err1 := c.ShouldBind(&formData); err1 != nil {
-		ResponseError(c, "参数错误", err1.Error())
-		return
-	}
-
-	data := make(map[string]interface{})
-	data["token"] = 11
-	ResponseSuccess(c, data)
-	return
 }
 
 func Login(c *gin.Context) {

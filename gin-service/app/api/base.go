@@ -2,9 +2,22 @@ package api
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/putyy/ai-share/app/form"
 	"github.com/putyy/ai-share/app/library"
 	"net/http"
 )
+
+func Search(c *gin.Context) {
+	formData := form.SearchKeywordForm{}
+	if err1 := c.ShouldBind(&formData); err1 != nil {
+		ResponseError(c, "参数错误", err1.Error())
+		return
+	}
+	data := make(map[string]interface{})
+	data["keyword"] = formData.Keyword
+	ResponseSuccess(c, data)
+	return
+}
 
 func GetLoginUid(c *gin.Context) int {
 	claims, _ := c.Get("ApiClaims")
