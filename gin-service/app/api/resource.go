@@ -42,9 +42,9 @@ func Search(c *gin.Context) {
 		fmt.Println("title is:" + funletuItem.Title)
 		tmpMap := map[string]interface{}{}
 		tmpMap["title"] = funletuItem.Title
-		tmpMap["hot"] = 96
-		tmpMap["fileType"] = 1
-		tmpMap["douban"] = 6.6
+		tmpMap["hot"] = funletuItem.Views
+		tmpMap["fileType"] = funletuItem.Filetype
+		//tmpMap["douban"] = 6.6
 
 		resultList = append(resultList, tmpMap)
 	}
