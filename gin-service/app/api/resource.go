@@ -47,12 +47,17 @@ func Search(c *gin.Context) {
 		tmpMap["hot"] = funletuItem.Views
 		tmpMap["fileType"] = funletuItem.Filetype
 		tmpMap["updateTime"] = funletuItem.UpdateTime
+		tmpMap["url"] = funletuItem.Url
 		//tmpMap["douban"] = 6.6
 
 		resultList = append(resultList, tmpMap)
 	}
 
-	ResponseSuccess(c, resultList)
+	result := map[string]interface{}{}
+	result["total"] = funletuRes.Total
+	result["list"] = resultList
+
+	ResponseSuccess(c, result)
 }
 
 // 插入log
