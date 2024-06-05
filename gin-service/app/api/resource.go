@@ -26,12 +26,14 @@ func Search(c *gin.Context) {
 	//1影视，2电影集，3福利，4综艺，5合集，6音乐，7港剧，8国产剧，9国产剧，10韩剧，11欧美，12日剧
 	//13台剧，14泰剧，15纪录片，16国产动漫，17漫画，18韩漫，19日漫，20欧美动漫，21电子书，22图集 小说 课程 模板 软件 游戏 其它 未知
 
+	ip := c.ClientIP()
+
 	formData := form.SearchKeywordForm{}
 	if err1 := c.ShouldBind(&formData); err1 != nil {
 		ResponseError(c, "参数错误", err1.Error())
 		return
 	}
-	insertRequestLog(formData.Keyword)
+	insertRequestLog(formData.Keyword, ip)
 
 	resultList := make([]map[string]interface{}, 0)
 
@@ -44,6 +46,7 @@ func Search(c *gin.Context) {
 		tmpMap["title"] = funletuItem.Title
 		tmpMap["hot"] = funletuItem.Views
 		tmpMap["fileType"] = funletuItem.Filetype
+		tmpMap["updateTime"] = funletuItem.UpdateTime
 		//tmpMap["douban"] = 6.6
 
 		resultList = append(resultList, tmpMap)
@@ -53,9 +56,10 @@ func Search(c *gin.Context) {
 }
 
 // 插入log
-func insertRequestLog(keyword string) {
+func insertRequestLog(keyword string, ip string) {
 	model := models.RequestLog{
 		Keyword: keyword,
+		Ip:      ip,
 	}
 	err := models.Db().Create(&model).Error
 	if err != nil {
