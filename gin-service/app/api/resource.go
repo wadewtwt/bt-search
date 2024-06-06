@@ -51,6 +51,7 @@ func Search(c *gin.Context) {
 		//tmpMap["douban"] = 6.6
 
 		resultList = append(resultList, tmpMap)
+		// https://www.douban.com/search?cat=1001&q=%E8%91%AB%E8%8A%A6%E5%A8%83
 	}
 
 	result := map[string]interface{}{}
