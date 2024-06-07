@@ -5,7 +5,6 @@ import (
 	"github.com/putyy/ai-share/app/admin"
 	"github.com/putyy/ai-share/app/api"
 	"github.com/putyy/ai-share/app/middleware"
-	"github.com/putyy/ai-share/app/models"
 	"github.com/putyy/ai-share/config"
 )
 
@@ -13,7 +12,6 @@ func InitRouter() (r *gin.Engine) {
 	r = gin.New()
 	r.Use(gin.Logger()).Use(gin.Recovery())
 	gin.SetMode(config.App.RunMode)
-	r.Use(models.Cors())
 
 	// start!!!
 	r.GET("/api/search", api.Search)
