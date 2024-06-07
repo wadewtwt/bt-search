@@ -14,9 +14,10 @@ func InitRouter() (r *gin.Engine) {
 	gin.SetMode(config.App.RunMode)
 
 	// start!!!
-	r.POST("/api/search", api.Search)
+	r.GET("/api/search", api.Search)
 
 	// end!!!
+
 	r.GET("/api/auth", api.Login)
 	r.GET("/api/wx-auth", api.WxMiNiLogin)
 

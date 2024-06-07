@@ -6,11 +6,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"github.com/putyy/ai-share/app/form"
 	"github.com/putyy/ai-share/app/models"
 	"github.com/putyy/ai-share/app/servers"
 	"io"
 	"net/http"
+	"strconv"
 )
 
 type result struct {
@@ -27,17 +27,16 @@ func Search(c *gin.Context) {
 	//13台剧，14泰剧，15纪录片，16国产动漫，17漫画，18韩漫，19日漫，20欧美动漫，21电子书，22图集 小说 课程 模板 软件 游戏 其它 未知
 
 	ip := c.ClientIP()
+	keyword := c.DefaultQuery("keyword", "")
 
-	formData := form.SearchKeywordForm{}
-	if err1 := c.ShouldBind(&formData); err1 != nil {
-		ResponseError(c, "参数错误", err1.Error())
-		return
-	}
-	insertRequestLog(formData.Keyword, ip)
+	pageNoStr := c.DefaultQuery("pageNo", "1") // 提供默认值"20"
+	pageNo, _ := strconv.Atoi(pageNoStr)       // 转换为int类型
+
+	insertRequestLog(keyword, ip)
 
 	resultList := make([]map[string]interface{}, 0)
 
-	funletuRes := servers.RequestFunletu(formData.Keyword, formData.PageNo)
+	funletuRes := servers.RequestFunletu(keyword, pageNo)
 	funletuResList := funletuRes.Data
 	for i := 0; i < len(funletuResList); i++ {
 		funletuItem := funletuResList[i]
