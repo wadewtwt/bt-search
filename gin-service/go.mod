@@ -12,6 +12,7 @@ require (
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/shiena/ansicolor v0.0.0-20200904210342-c7312218db18 // indirect
 	github.com/silenceper/wechat/v2 v2.1.3
+	github.com/ugorji/go v1.2.7 // indirect
 	golang.org/x/time v0.0.0-20220411224347-583f2d630306
 	gorm.io/driver/mysql v1.3.3
 	gorm.io/gorm v1.23.5
