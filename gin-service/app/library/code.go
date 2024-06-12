@@ -1,7 +1,7 @@
 package library
 
 const (
-	SUCCESS       = 1
+	SUCCESS       = 200
 	ERROR         = 0
 	InvalidParams = 40001
 
