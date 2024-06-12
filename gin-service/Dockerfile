@@ -21,6 +21,7 @@ WORKDIR /app
 
 # 将二进制文件从 /build 目录复制到这里
 COPY /main .
+COPY /.env .
 
 # 声明服务端口
 EXPOSE 13001
