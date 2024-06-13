@@ -1,4 +1,4 @@
-FROM golang:alpine
+FROM registry.cn-shanghai.aliyuncs.com/wt-pro/golang:v1
 
 # 为我们的镜像设置必要的环境变量
 ENV GO111MODULE=on \
