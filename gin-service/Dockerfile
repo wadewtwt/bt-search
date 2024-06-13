@@ -27,4 +27,4 @@ COPY /.env .
 EXPOSE 13001
 
 # 启动容器时运行的命令
-#CMD ["/app/main"]
+CMD ["/app/main"]
