@@ -14,6 +14,7 @@ func InitRouter() (r *gin.Engine) {
 	gin.SetMode(config.App.RunMode)
 	// start!!!
 	r.GET("/api/search", api.Search)
+	r.POST("/api/searchFilm", api.SearchFilm)
 
 	// end!!!
 
