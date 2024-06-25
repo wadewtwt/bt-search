@@ -8,3 +8,7 @@ func ListTopThree(keyword string) (resList []models.Film) {
 	models.Db().Where("title like ?", "%"+keyword+"%").Select("*").Limit(3).Order("id desc").Find(&resList)
 	return
 }
+
+func reportKeyword() {
+
+}

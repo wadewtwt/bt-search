@@ -15,6 +15,7 @@ func InitRouter() (r *gin.Engine) {
 	// start!!!
 	r.GET("/api/search", api.Search)
 	r.POST("/api/searchFilm", api.SearchFilm)
+	r.POST("/api/ReportKeyword", api.ReportKeyword)
 
 	// end!!!
 
