@@ -7,7 +7,7 @@ import (
 	"github.com/putyy/ai-share/app/servers"
 )
 
-// 搜索豆瓣
+// 搜索豆瓣接口
 func SearchFilm(c *gin.Context) {
 	ip := c.ClientIP()
 
@@ -17,10 +17,16 @@ func SearchFilm(c *gin.Context) {
 		return
 	}
 
+	// 插入到访问记录表
 	insertFilmRequestLog(formData.Keyword, ip)
 
 	data := make(map[string]interface{})
-	data["list"] = servers.ListTopThree(formData.Keyword)
+	list := servers.ListTopThree(formData.Keyword)
+	data["list"] = list
+	if len(list) == 0 {
+		// 插入到反馈记录表
+		insertReportKeyword(formData.Keyword, ip, 2)
+	}
 	ResponseSuccess(c, data)
 }
 
@@ -36,7 +42,7 @@ func insertFilmRequestLog(keyword string, ip string) {
 	}
 }
 
-// 反馈关键词
+// 反馈关键词接口
 func ReportKeyword(c *gin.Context) {
 	ip := c.ClientIP()
 
@@ -45,14 +51,15 @@ func ReportKeyword(c *gin.Context) {
 		ResponseError(c, "参数错误", err1.Error())
 		return
 	}
-	insertReportKeyword(formData.Keyword, ip)
+	insertReportKeyword(formData.Keyword, ip, 1)
 }
 
 // 插入关键词反馈
-func insertReportKeyword(keyword string, ip string) {
-	model := models.FilmRequestLog{
-		Keyword: keyword,
-		Ip:      ip,
+func insertReportKeyword(keyword string, ip string, reportType int) {
+	model := models.FilmReport{
+		Keyword:    keyword,
+		Ip:         ip,
+		ReportType: reportType,
 	}
 	err := models.Db().Create(&model).Error
 	if err != nil {
