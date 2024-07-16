@@ -39,6 +39,10 @@ location ~ (/api/|/admin/) {
     proxy_pass http://127.0.0.1:9501;
 }
 ```
+服务器配置
+镜像拉不下来可能是没有登录阿里云的仓库，复制命令时候记得改下账户名
+然后按照教程下载amd版本
+https://www.cnblogs.com/warrenwt/p/18109103
 
 ## 参考
 > 去水印copy该项目部分: https://github.com/IHuan123/watermark-server
